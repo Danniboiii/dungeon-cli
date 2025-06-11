@@ -4,7 +4,7 @@
 
 
 # die quellcodedatein sind alle datein mit .cpp endung
-SRCS := $(wildcard *.cpp)
+SRCS := $(wildcard *.cpp) $(wildcard src/*.cpp)
 
 # objektdatein werden aus allen quelldatein (.cpp endung) erstellt, indem die endung von .cpp zu .o geändert wird (text substitution)
 OBJS := $(SRCS:.cpp=.o)
@@ -14,18 +14,18 @@ TARGET = dungeon
 
 # compiler ist g++ und compiler flags sind: alle warnungen und c++-standart ist c++17
 CXX = g++
-CXXFLAGS = -Wall -std=c++17 -g
+CXXFLAGS = -Wall -std=c++17 -g -Iinclude
 
 # für meine fertige datei calc brauche ich objektdatein zum zusammenfügen
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)
+	$(CXX) $(CFLAGS) $(OBJS) -o $(TARGET)
 # starte g++ mit den flags und c-std, verwende alle objektdatein, und linke sie zur zieldatei
 
 #für die .o datein, die aus den .cpp datein entstehen gelten folgende regeln
 # bzw. wenn du eine objektdatei brauchst (etwas.o), dann nimm etwas.cpp und erstelle sie daraus
 # %.o ist ein platzhalter für die objektdatei, und %.cpp ist die dazugehörige quelldatei
 %.o: %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # '$<' bedeutet dass die eingabe datei .cpp ist, und $@ ist das ziel:
 # g++ -Wall -std=c++17 -c main-calc.cpp -o main-calc.o
@@ -71,11 +71,13 @@ archive:
 
 .PHONY: info
 info:
-	@echo "Quellcode-Dateien: $(SRCS)"
-	@echo "Objektdateien:     $(OBJS)"
-	@echo "Zielprogramm:      $(TARGET)"
-	@echo "Compiler:          $(CC)"
-	@echo "Flags:             $(CFLAGS)"
+	@echo -e "$(YELLOW)--- Projektübersicht ---$(NC)"
+	@echo -e "Quellcode-Dateien: $(SRCS)"
+	@echo -e "Header-Dateien:    $(HEADERS)"
+	@echo -e "Objektdateien:     $(OBJS)"
+	@echo -e "Zielprogramm:      $(TARGET)"
+	@echo -e "Compiler:          $(CXX)"
+	@echo -e "Flags:             $(CXXFLAGS)"
 
 # format Code based on different possible formats
 # Possibilities: GOOGLE, WEBKIT, MICROSOFT, LLVM, MOZILLA, CHROMIUM, GNU
