@@ -1,0 +1,34 @@
+#include <iostream>
+#include "player.h"
+#include "rooms.h"
+
+
+namespace dungeon{
+
+    player::~player() {}
+
+    void player::move_north(){
+
+        if(current_room->north != nullptr) current_room = current_room->north;
+        else std::cout << "A wall prevents you from moving north" << std::endl;
+    }
+
+    void player::move_south(){
+
+        if(current_room->south != nullptr) current_room = current_room->south;
+        else std::cout << "A wall prevents you from moving south" << std::endl;
+    }
+
+    void player::move_east(){
+
+        if(current_room->east != nullptr) current_room = current_room->east;
+        else std::cout << "A wall prevents you from moving east" << std::endl;
+    }
+
+    void player::move_west(){
+
+        if(current_room->west != nullptr) current_room = current_room->west;
+        else std::cout << "A wall prevents you from moving west" << std::endl;
+    }
+    
+}

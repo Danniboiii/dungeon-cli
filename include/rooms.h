@@ -23,15 +23,11 @@ namespace dungeon{
         Room* west;
 
         // deault constructor, make sure to keep the order of the member variables
-        Room() : x_coordinate(0), y_coordinate(0), is_edge(false), is_corner(false), north(nullptr), south(nullptr), east(nullptr), west(nullptr) {}
+        Room();
         // make a new room on xy coordinates, make sure to keep the order of the member variables
-        Room(int x, int y) : x_coordinate(x), y_coordinate(y), is_edge(false), is_corner(false), north(nullptr), south(nullptr), east(nullptr), west(nullptr) {
+        Room(int x, int y);
 
-            if(x == 0 || y == 0) is_edge = true;
-            if(x == 4 || y == 4) is_edge = true;
-            if((x == 0 && y == 0) || (x == 0 && y == 4) || (x == 4 && y == 0) || (x == 4 && y == 4)) is_corner = true;
-        }
-
+        void print_coordinates() const; // declared in rooms.h
     };
 
 
