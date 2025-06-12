@@ -1,10 +1,14 @@
+#pragma once
 #include <vector>
 #include <string>
-#pragma once
+#include "player.h"
 
 // everything inside this dungeon namespace must be used with dungeon::xyz
 // or one can use 'using namespace dungeon' to avoid all that
 namespace dungeon{ 
+
+    class player;
+
     //class definition
     class Room {
     
@@ -27,9 +31,15 @@ namespace dungeon{
         // make a new room on xy coordinates, make sure to keep the order of the member variables
         Room(int x, int y);
 
-        void print_coordinates() const; // declared in rooms.h
-    };
+        int const get_x() { return x_coordinate; }
+        int const get_y() { return y_coordinate; }
 
+        // declared in rooms.h
+        void print_coordinates() const; 
+        // prints the world_grid onto the console
+        static void print_worldgrid_without_player();
+        void print_worldgrid_with_player();
+    };
 
     void link_rooms(std::vector<std::vector<Room*>>& World_Grid);
     std::vector<std::vector<Room*>> create_world();

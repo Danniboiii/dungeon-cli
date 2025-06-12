@@ -1,6 +1,9 @@
+#pragma once
 #include "rooms.h"
 
 namespace dungeon{
+
+    class Room; // forward declaration?
 
     class player{
 
@@ -10,7 +13,7 @@ namespace dungeon{
 
         public:
             // initializes and constructs a player and a room at position (x, y)
-            player(Room* start) : current_room(start) {};
+            player(Room* starting_room) : current_room(starting_room) {};
             // default destructor
             ~player();
 
@@ -18,11 +21,9 @@ namespace dungeon{
             void move_south();
             void move_east();
             void move_west();
-            void print_coordinates() const{
-                if(current_room) current_room->print_coordinates();
-            }
-        
+            void print_coordinates() const;
+
+            int get_x();
+            int get_y();
     };
-
-
 }

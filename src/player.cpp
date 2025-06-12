@@ -31,4 +31,10 @@ namespace dungeon{
         else std::cout << "A wall prevents you from moving west" << std::endl;
     }
     
+    void player::print_coordinates() const{
+        if(current_room) current_room->print_coordinates();
+    }
+
+    int player::get_x(){ return current_room->get_x(); }
+    int player::get_y(){ return current_room->get_y(); }
 }

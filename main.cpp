@@ -5,13 +5,16 @@
 
 int main(int argc, char** argv){
 
+    // /*
     std::vector<std::vector<dungeon::Room*>> World_Grid = dungeon::create_world();
 
-    dungeon::Room* start = World_Grid[2][2];
-    dungeon::player player1(start);
+    dungeon::Room* starting_room = World_Grid[2][2];
+    dungeon::player player1(starting_room);
 
     std::string input;
 
+    dungeon::Room::print_worldgrid_without_player();
+     /*
     while(true){
 
         std::cout << "Where do you want do go? (n/s/e/w) or quit (q)" << std::endl;
@@ -36,7 +39,7 @@ int main(int argc, char** argv){
         else if(input == "q") break;
         else std::cout << "invalid input" << std::endl << std::endl;
     }
-
+*/
     dungeon::delete_world(World_Grid);
     return 0;
 }
