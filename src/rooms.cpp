@@ -40,20 +40,44 @@ namespace dungeon{
         std::cout << "Room Location (x:" << x_coordinate << ", " << "y:" << y_coordinate << ")" << std::endl << std::endl;
     }
 
-    void print_vertical_lines_with_player(player& player){
+    // prints one line, either with player ("  *  |"), or without player ("     |")
+    void Room::print_vertical_lines_with_player(player& player, int line){
 
-    using namespace std;
-    for(int i = 0; i < 5; i++){
-
-        if(i == 0) cout << "|";
-        for(int j = 0; j < 5; i++){
-
-            //if(player.get_x() == World_Grid[i][j]->get_x && )
-            cout << " ";
-        }
+        using namespace std;
         cout << "|";
+
+        for(int x = 0; x < 5; x++){
+
+            if(player.get_x() == x && player.get_y() == line) cout << "  *  |";
+            else cout << "     |";
+        }
     }
-}
+
+
+
+    // prints the world grid with the players location
+    void Room::print_worldgrid_with_player(player& player, std::vector<std::vector<Room*>> &World_Grid){
+
+        using namespace std;
+
+        cout << " _____________________________" << "" << endl;
+
+        for (int line = 0; line < 5; line++){
+
+            for(int subline = 0; subline < 3; subline++){
+
+                if (subline == 0) print_vertical_lines_without_player();
+                else if(subline == 1){
+
+                    print_vertical_lines_with_player(player, line);
+                    continue;
+                }
+                cout << endl; // important endl
+            }
+            print_horizontal_lines();
+            cout << endl;
+        }
+    }
 
     // prints the world grid template
     void Room::print_worldgrid_without_player(){
@@ -70,25 +94,6 @@ namespace dungeon{
         cout << endl;
     }
 
-    // prints the world grid with the players location
-    void print_worldgrid_with_player(player& player){
-
-        using namespace std;
-
-        cout << " _____________________________" << "" << endl;
-        for(int i = 1; i < 16; i++){
-
-            if((i != 0) & (i % 3 == 0)) print_horizontal_lines();
-            else print_vertical_lines_with_player(player);
-            cout << endl;
-            }
-    
-    }
-
-
-
-    // print the world grid with the player location
-    //
 
     void link_rooms(std::vector<std::vector<Room*>> &World_Grid){
 

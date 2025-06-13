@@ -31,14 +31,17 @@ namespace dungeon{
         // make a new room on xy coordinates, make sure to keep the order of the member variables
         Room(int x, int y);
 
+        // gets the x-coordiante of the room current room
         int const get_x() { return x_coordinate; }
+        // gets the y-coordiante of the room current room
         int const get_y() { return y_coordinate; }
 
         // declared in rooms.h
         void print_coordinates() const; 
         // prints the world_grid onto the console
         static void print_worldgrid_without_player();
-        void print_worldgrid_with_player();
+        static void print_vertical_lines_with_player(player& player, int line);
+        static void print_worldgrid_with_player(player& player, std::vector<std::vector<Room*>> &World_Grid);
     };
 
     void link_rooms(std::vector<std::vector<Room*>>& World_Grid);

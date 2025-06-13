@@ -23,7 +23,9 @@ namespace dungeon{
             void move_west();
             void print_coordinates() const;
 
+            // gets the current x-coordinate of the player
             int get_x();
+            // gets the current y-coordinate of the player
             int get_y();
     };
 }
