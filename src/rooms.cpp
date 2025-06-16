@@ -37,7 +37,7 @@ namespace dungeon{
 
     void Room::print_coordinates() const{
 
-        std::cout << "Room Location (x:" << x_coordinate << ", " << "y:" << y_coordinate << ")" << std::endl << std::endl;
+        std::cout << std::endl << std::endl << std::endl << "Room Location (x:" << x_coordinate << ", " << "y:" << y_coordinate << ")" << std::endl;
     }
 
     // prints one line, either with player ("  *  |"), or without player ("     |")
@@ -132,10 +132,4 @@ namespace dungeon{
         }
         return;
     }
-
-
-
-
-
-
 } // namespace dungeon
