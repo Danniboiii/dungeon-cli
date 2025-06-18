@@ -1,4 +1,5 @@
 #include "rooms.h"
+#include "inventory.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -33,6 +34,16 @@ namespace dungeon{
         if(x == 0 || y == 0) is_edge = true;
         if(x == 4 || y == 4) is_edge = true;
         if((x == 0 && y == 0) || (x == 0 && y == 4) || (x == 4 && y == 0) || (x == 4 && y == 4)) is_corner = true;
+    }
+
+    Room::~Room(){
+
+        while(inventory_head != nullptr){
+
+            item* temp = inventory_head->get_Next(); // zeiger auf den nächsten knoten MERKEN!
+            delete inventory_head; // aktuellen knoten leeren
+            inventory_head = temp; // der kopf ist jetzt der zeiger auf den nächsten knoten
+        }
     }
 
     void Room::print_coordinates() const{
@@ -132,4 +143,7 @@ namespace dungeon{
         }
         return;
     }
+
+
+
 } // namespace dungeon

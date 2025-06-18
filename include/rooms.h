@@ -2,12 +2,14 @@
 #include <vector>
 #include <string>
 #include "player.h"
+#include "inventory.h"
 
 // everything inside this dungeon namespace must be used with dungeon::xyz
 // or one can use 'using namespace dungeon' to avoid all that
 namespace dungeon{ 
 
     class player;
+    class item;
 
     //class definition
     class Room {
@@ -18,6 +20,7 @@ namespace dungeon{
         int y_coordinate;
         bool is_edge;
         bool is_corner;
+        item* inventory_head;
 
     public:
 
@@ -30,6 +33,9 @@ namespace dungeon{
         Room();
         // make a new room on xy coordinates, make sure to keep the order of the member variables
         Room(int x, int y);
+
+        // delete the room and its inventory
+        ~Room();
 
         // gets the x-coordiante of the room current room
         int const get_x() { return x_coordinate; }

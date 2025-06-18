@@ -5,7 +5,15 @@
 
 namespace dungeon{
 
-    player::~player() {}
+    player::~player() {
+
+        while(inventory_head != nullptr){
+
+            item* temp = inventory_head->get_Next(); // zeiger auf den nächsten knoten MERKEN!
+            delete inventory_head; // aktuellen knoten leeren
+            inventory_head = temp; // der kopf ist jetzt der zeiger auf den nächsten knoten
+        }
+    }
 
     void player::move_north(){
 

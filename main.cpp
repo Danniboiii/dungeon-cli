@@ -30,7 +30,7 @@ int main(int argc, char** argv){
         std::cout << "Where do you want do go? (n/s/e/w) or quit (q)" << std::endl;
         std::cin >> input;
         
-        if((input == "n") || (input == "w")){
+        if(input == "w"){
             player1.move_north();
             player1.print_coordinates();
         }
@@ -38,11 +38,11 @@ int main(int argc, char** argv){
             player1.move_south();
             player1.print_coordinates();
         }
-        else if((input == "e") || (input == "d")){
+        else if(input == "d"){
             player1.move_east();
             player1.print_coordinates();
         }
-        else if((input == "w") || (input == "a")){
+        else if(input == "a"){
             player1.move_west();
             player1.print_coordinates();
         }

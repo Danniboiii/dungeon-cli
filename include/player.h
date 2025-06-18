@@ -1,19 +1,22 @@
 #pragma once
 #include "rooms.h"
+#include "inventory.h"
 
 namespace dungeon{
 
     class Room; // forward declaration?
+    class item;
 
     class player{
 
         private:
 
             Room* current_room;
+            item* inventory_head;
 
         public:
             // initializes and constructs a player and a room at position (x, y)
-            player(Room* starting_room) : current_room(starting_room) {};
+            player(Room* starting_room) : current_room(starting_room), inventory_head(nullptr) {};
             // default destructor
             ~player();
 
