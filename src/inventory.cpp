@@ -14,7 +14,7 @@ namespace dungeon{
     }
 
     // appends an item to the inventory, first_item is the head of the list
-    item* item::add_item(const std::string& name, item* inventory_head){
+    item* item::add_item(item* inventory_head, const std::string& name){
 
         if(inventory_head == nullptr){ // if list empty
 
@@ -37,7 +37,7 @@ namespace dungeon{
     }
 
 
-    void item::free_list(item* inventory_head){
+    item* item::clear_inventory(item* inventory_head){
 
         while(inventory_head->next != nullptr){
 
@@ -45,6 +45,7 @@ namespace dungeon{
             delete inventory_head; // aktuellen knoten löschen
             inventory_head = temp; // der kopf ist jetzt der zeiger auf den nächsten knoten
         }
+        return nullptr;
     }
 
     item* item::get_Next() {return next;}
@@ -64,7 +65,7 @@ namespace dungeon{
 
             std::cout << current_item->name;
             if(current_item->next != nullptr) std::cout << ", ";
-            current_item = inventory_head->next;
+            current_item = current_item->next;
         }
         std::cout << std::endl;
     }

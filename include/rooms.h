@@ -48,6 +48,18 @@ namespace dungeon{
         static void print_worldgrid_without_player();
         static void print_vertical_lines_with_player(player& player, int line);
         static void print_worldgrid_with_player(player& player, std::vector<std::vector<Room*>> &World_Grid);
+
+        // adds an item to the a room's inventory, needs list head
+        void add_item_to_r_inventory(item* inventory_head, const std::string& item_name);
+
+        // adds an item to the player's inventory, needs list head
+        void add_item_to_r_inventory(const std::string& item_name);
+        void print_single_r_inventory();
+        void clear_r_inventory();
+        static void print_inventory_of_all_rooms(std::vector<std::vector<Room*>> &World_Grid);
+
+        // subject to change!!! it's manual now but will be automatic!
+        static void place_items_in_rand_rooms(std::vector<std::vector<Room*>> &World_Grid);
     };
 
     void link_rooms(std::vector<std::vector<Room*>>& World_Grid);

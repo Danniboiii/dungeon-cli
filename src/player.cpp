@@ -42,6 +42,22 @@ namespace dungeon{
     void player::print_coordinates() const{
         if(current_room) current_room->print_coordinates();
     }
+    
+    void player::add_item_to_p_inventory(const std::string& item_name){
+
+        inventory_head = item::add_item(inventory_head, item_name);
+    }
+
+    void player::print_p_inventory(){
+
+        item::print_inventory(inventory_head);
+    }
+
+    void player::clear_p_inventory(){
+
+        inventory_head = item::clear_inventory(inventory_head);
+    }
+
 
     int player::get_x(){ return current_room->get_x(); }
     int player::get_y(){ return current_room->get_y(); }

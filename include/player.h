@@ -26,6 +26,11 @@ namespace dungeon{
             void move_west();
             void print_coordinates() const;
 
+            // adds an item to the player's inventory, needs list head
+            void add_item_to_p_inventory(const std::string& item_name);
+            void print_p_inventory();
+            void clear_p_inventory();
+
             // gets the current x-coordinate of the player
             int get_x();
             // gets the current y-coordinate of the player

@@ -2,7 +2,9 @@
 #include "inventory.h"
 #include <vector>
 #include <string>
+#include <sstream>
 #include <iostream>
+#include <random>
 
 
 
@@ -64,8 +66,6 @@ namespace dungeon{
         }
     }
 
-
-
     // prints the world grid with the players location
     void Room::print_worldgrid_with_player(player& player, std::vector<std::vector<Room*>> &World_Grid){
 
@@ -103,6 +103,63 @@ namespace dungeon{
             cout << endl;
             }
         cout << endl;
+    }
+
+
+    void Room::add_item_to_r_inventory(const std::string& item_name){
+
+        inventory_head = item::add_item(inventory_head, item_name);
+    }
+
+    void Room::print_single_r_inventory(){
+
+        item::print_inventory(inventory_head);
+    }
+
+    void Room::clear_r_inventory(){
+
+        inventory_head = item::clear_inventory(inventory_head);
+    }
+
+    void Room::print_inventory_of_all_rooms(std::vector<std::vector<Room*>> &World_Grid){
+
+        using namespace std;
+        for(int y = 0; y < 5; y++){
+            for (int x = 0; x < 5; x++){
+
+                // wrong: cout << World_Grid[y][x]->item::print_inventory(inventory_head);
+                // only prints the items of a room, if there are any.
+                if(World_Grid[y][x]->inventory_head != nullptr){
+                    cout << "Items in Room (" << y << ", " << x << "): ";
+                    item::print_inventory(World_Grid[y][x]->inventory_head);
+                    //cout << endl;
+                }
+
+            }
+        }
+    }
+
+    void Room::place_items_in_rand_rooms(std::vector<std::vector<Room*>> &World_Grid){
+
+        using namespace std;
+
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_int_distribution<> dist(0, 4);
+        cout << "Enter items that will be placed in the World Grid: <item> <item> <item> etc." << endl;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear leftover newline
+
+        string line;
+        getline(cin, line);
+        istringstream iss(line);
+        string item_name;
+
+        while(iss >> item_name){
+
+            int x = dist(gen);
+            int y = dist(gen);
+            World_Grid[y][x]->add_item_to_r_inventory(item_name);
+        }
     }
 
 
