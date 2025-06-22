@@ -2,11 +2,12 @@
 #include "rooms.h"
 #include "inventory.h"
 #include "player.h"
+#include "worldgrid.h"
 
 
 int main(int argc, char** argv){
 
-    std::vector<std::vector<dungeon::Room*>> World_Grid = dungeon::create_world();
+    std::vector<std::vector<dungeon::Room*>> World_Grid = create_world();
 
     std::cout << "Choose your starting room! (x = 0-4 & y = 0-4)" << std::endl;
     int x, y;
@@ -22,16 +23,21 @@ int main(int argc, char** argv){
     dungeon::player player1(starting_room);
 
     dungeon::Room::place_items_in_rand_rooms(World_Grid);
-    dungeon::Room::print_worldgrid_with_player(player1, World_Grid);
+    print_worldgrid_with_player(player1, World_Grid);
 
     std::cout << "Now let's add and move some items" << std::endl;
 
-    player1.add_item_to_p_inventory("Schwert");
+    dungeon::item* sword = new dungeon::item("sword", 1);
+    dungeon::item* pork = new dungeon::item("pork", 25);
+    player1.add_item_to_p_inventory(*sword);
     player1.print_p_inventory();
-    player1.add_item_to_p_inventory("Pork");
+    player1.add_item_to_p_inventory(*pork);
     player1.print_p_inventory();
     player1.clear_p_inventory();
     player1.print_p_inventory();
+
+    delete sword;
+    delete pork;
 
     dungeon::Room::print_inventory_of_all_rooms(World_Grid);
 
@@ -64,7 +70,7 @@ int main(int argc, char** argv){
 
         dungeon::Room::print_worldgrid_with_player(player1, World_Grid);
     } 
-
-    dungeon::delete_world(World_Grid); */
+    */
+    delete_world(World_Grid);
     return 0;
 }

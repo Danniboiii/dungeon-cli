@@ -26,8 +26,8 @@ namespace dungeon{
             void move_west();
             void print_coordinates() const;
 
-            // adds an item to the player's inventory, needs list head
-            void add_item_to_p_inventory(const std::string& item_name);
+            // adds an item to the player's inventory, needs an item reference
+            void add_item_to_p_inventory(const item& new_item);
             void print_p_inventory();
             void clear_p_inventory();
 

@@ -7,26 +7,19 @@
 
 namespace dungeon{
 
-    item* item::initialize_inventory(){
-
-        item* inventory_head = nullptr; // empty list
-        return inventory_head;
-    }
 
     // appends an item to the inventory, first_item is the head of the list
-    item* item::add_item(item* inventory_head, const std::string& name){
+    item* item::add_item(item* inventory_head, const item& item_to_add){
 
         if(inventory_head == nullptr){ // if list empty
 
-            item* new_item = new item(name);
-            new_item->name = name;
-            new_item->next = nullptr;
+            item* new_item = new item(item_to_add); // calls the copy constructor
             inventory_head = new_item;
-            return inventory_head;
+            return inventory_head; // the now has one item
         }
 
-        item* new_item = new item(name);
-        item* last_item = inventory_head;
+        item* new_item = new item(item_to_add);
+        item* last_item = inventory_head; 
         while(last_item->next != nullptr){
 
             last_item = last_item->next; // go to the next node
@@ -39,7 +32,7 @@ namespace dungeon{
 
     item* item::clear_inventory(item* inventory_head){
 
-        while(inventory_head->next != nullptr){
+        while(inventory_head != nullptr){
 
             item* temp = inventory_head->next; // zeiger auf den nächsten knoten MERKEN!
             delete inventory_head; // aktuellen knoten löschen
@@ -53,7 +46,6 @@ namespace dungeon{
     void item::print_inventory(item* inventory_head){
 
         item* current_item = inventory_head;
-
         if(current_item == nullptr){
 
             std::cout << "No items in this inventory." << std::endl;
@@ -63,7 +55,7 @@ namespace dungeon{
         std::cout << "Items: ";
         while(current_item != nullptr){
 
-            std::cout << current_item->name;
+            std::cout << current_item->name << "(" << current_item->quantity << ")";
             if(current_item->next != nullptr) std::cout << ", ";
             current_item = current_item->next;
         }
@@ -73,7 +65,6 @@ namespace dungeon{
     item* item::search_inventory(item* inventory_head, const std::string& search_name){
 
         item* current_item = inventory_head;
-
         if(current_item == nullptr){
 
             std::cout << "The inventory is empty" << std::endl;
@@ -90,5 +81,16 @@ namespace dungeon{
         }
         std::cout << "<"<< search_name << "> is not in this inventory." << std::endl;
         return nullptr;
+    }
+    item* item::copy_inventory(item* &source_list_head, item* target_list_head){
+
+        item* current_item = source_list_head;
+        while(current_item != nullptr){
+
+            target_list_head = add_item(target_list_head, *current_item); 
+            // because add item expects a reference to an item object, the pointer to current_item needs to be derefferenced
+            current_item = current_item->next;
+        }
+        return target_list_head;
     }
 }
