@@ -7,6 +7,36 @@
 
 namespace dungeon{
 
+    item& item::operator=(const item &item_to_copy){
+
+        if(this == &item_to_copy) return *this;
+        this->name = item_to_copy.name;
+        this->quantity = item_to_copy.quantity;
+        this->next = nullptr;
+        return *this;
+    }
+
+    item::item(item&& other) noexcept : name(std::move(other.name)), quantity(other.quantity), next(other.next){
+
+    other.name.clear();
+    other.quantity = 0;
+    other.next = nullptr;
+    }
+
+    item& item::operator=(item&& other) noexcept{
+
+        if(this != &other){ // 1. Check for self-assignment
+
+            delete next; // 2. Clean up current resources (avoid memory leak)
+            name = std::move(other.name); // 3. Move the name string from (other) to (this)
+            quantity = other.quantity; // 4. Copy the quantity
+            next = other.next; // 5. Steal the next pointer (linked list)
+            other.next = nullptr; // 6. Leave other in a valid, empty state
+            other.quantity = 0;
+            other.name.clear();
+        }
+        return *this; // 7. Return *this for chaining
+    }
 
     // appends an item to the inventory, first_item is the head of the list
     item* item::add_item(item* inventory_head, const item& item_to_add){
@@ -155,7 +185,7 @@ namespace dungeon{
         return nullptr;
     }
 
-    item* item::copy_inventory(item* &source_list_head, item* target_list_head){
+    item* item::copy_inventory(item* source_list_head, item* target_list_head){
 
         if (source_list_head == target_list_head && source_list_head != nullptr) {
             std::cerr << "Error: Attempt to copy inventory into itself!" << std::endl;

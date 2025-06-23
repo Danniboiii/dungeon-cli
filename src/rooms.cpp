@@ -57,7 +57,7 @@ namespace dungeon{
 
                 // wrong: cout << World_Grid[y][x]->item::print_inventory(inventory_head);
                 // only prints the items of a room, if there are any.
-                if(World_Grid[y][x]->inventory_head != nullptr){
+                if(World_Grid[y][x]->get_inventory() == nullptr){
                     cout << "Items in Room (" << x << ", " << y << "): ";
                     item::print_inventory(World_Grid[y][x]->inventory_head);
                     //cout << endl;
