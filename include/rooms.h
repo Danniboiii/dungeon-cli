@@ -42,6 +42,9 @@ namespace dungeon{
         // gets the y-coordiante of the room current room
         int const get_y() { return y_coordinate; }
 
+        item* const get_inventory() {return inventory_head; }
+        void set_inventory(item* new_head) { inventory_head = new_head; }
+
         // declared in rooms.h
         void print_coordinates() const; 
 

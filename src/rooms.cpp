@@ -22,7 +22,7 @@ namespace dungeon{
 
         while(inventory_head != nullptr){
 
-            item* temp = inventory_head->get_Next(); // zeiger auf den nächsten knoten MERKEN!
+            item* temp = inventory_head->get_next(); // zeiger auf den nächsten knoten MERKEN!
             delete inventory_head; // aktuellen knoten leeren
             inventory_head = temp; // der kopf ist jetzt der zeiger auf den nächsten knoten
         }
@@ -40,6 +40,7 @@ namespace dungeon{
 
     void Room::print_single_r_inventory(){
 
+        std::cout << "This room contains the following items" << std::endl;
         item::print_inventory(inventory_head);
     }
 
@@ -57,7 +58,7 @@ namespace dungeon{
                 // wrong: cout << World_Grid[y][x]->item::print_inventory(inventory_head);
                 // only prints the items of a room, if there are any.
                 if(World_Grid[y][x]->inventory_head != nullptr){
-                    cout << "Items in Room (" << y << ", " << x << "): ";
+                    cout << "Items in Room (" << x << ", " << y << "): ";
                     item::print_inventory(World_Grid[y][x]->inventory_head);
                     //cout << endl;
                 }
