@@ -15,17 +15,24 @@ namespace dungeon{
 
             item* new_item = new item(item_to_add); // calls the copy constructor
             inventory_head = new_item;
-            return inventory_head; // the now has one item
+            return inventory_head; // the inventory now has one item
         }
 
-        item* new_item = new item(item_to_add);
-        item* last_item = inventory_head; 
-        while(last_item->next != nullptr){
+        item* current_item = inventory_head;
+        item* previous_item = nullptr;
 
-            last_item = last_item->next; // go to the next node
-        } // after this loop, last_item->next == nullptr
-        last_item->next = new_item;
-        new_item->next = nullptr;
+        while(current_item != nullptr){
+
+            if(current_item->get_name() == item_to_add.get_name()){
+
+                // if the item already is in the inventory, increase quantity
+                current_item->quantity += item_to_add.get_quantity();
+                return inventory_head;
+            }
+            previous_item = current_item;
+            current_item = current_item->get_next();
+        }
+        previous_item->next = new item(item_to_add);
         return inventory_head;
     }
 
@@ -80,9 +87,9 @@ namespace dungeon{
         return nullptr;
     }
 
-    std::string item::get_name() {return name;}
-    int item::get_quantity() {return quantity;}
-    item* item::get_next() {return next;}
+    std::string item::get_name() const {return name;}
+    int item::get_quantity() const {return quantity;}
+    item* item::get_next() const {return next;}
 
     item* item::get_item_by_index(item* inventory_head, int index){
 
@@ -107,23 +114,24 @@ namespace dungeon{
 
 
     void item::print_inventory(item* inventory_head){
+        using namespace std;
 
         item* current_item = inventory_head;
         if(current_item == nullptr){
 
-            std::cout << "No items in this inventory." << std::endl;
+            cout << "No items in this inventory." << endl;
             return;
         }
 
         int index = 1;
         while(current_item != nullptr){
 
-            std::cout << "[" << index << "]: " << current_item->name << "(" << current_item->quantity << ")";
-            if(current_item->next != nullptr) std::cout << ", ";
+            std::cout << endl << "[" << index << "]: " << current_item->name << "(" << current_item->quantity << ");";
+            //if(current_item->next != nullptr) cout << "; ";  
             current_item = current_item->next;
             index++;
-            std::cout << std::endl;
         }
+        cout << endl << endl;
     }
 
     item* item::search_inventory(item* inventory_head, const std::string &search_name){

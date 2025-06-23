@@ -23,9 +23,9 @@ namespace dungeon{
         // clears and deletes every item, and returns nullptr
         static item* clear_inventory(item* inventory_head);
 
-        std::string get_name();
-        int get_quantity();
-        item* get_next();
+        std::string get_name() const;
+        int get_quantity() const;
+        item* get_next() const;
         static item* get_item_by_index(item* inventory_head, int index);
 
         // adds an item to the inventory, but needs the first item as a list head
