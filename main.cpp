@@ -12,8 +12,15 @@ int main(int argc, char** argv){
     std::vector<std::vector<dungeon::Room*>> World_Grid = create_world();
 
     std::cout << "Choose your starting room! (x = 0-4 & y = 0-4)" << std::endl;
-    int x, y;
-    std::cin >> x >> y;
+    std::string start_coordinates; int x, y;
+
+    std::getline(std::cin, start_coordinates);
+    std::stringstream ss(start_coordinates);
+    if(!(ss >> x >> y) || !(ss.eof())){
+
+        std::cout << "Bruh, enter two integers (0-4) seperated by space: <x> <space> <y>" << std::endl;
+        exit(4);
+    }
 
     if((x < 0 || x > 4) || (y < 0 || y > 4)){
 
@@ -27,7 +34,7 @@ int main(int argc, char** argv){
     dungeon::Room::place_items_in_rand_rooms(World_Grid);
     print_worldgrid_with_player(player1, World_Grid);
 
-    /* std::cout << "Now let's add and move some items" << std::endl;
+  /*   std::cout << "Now let's add and move some items" << std::endl;
 
     dungeon::item* sword = new dungeon::item("sword", 1);
     dungeon::item* pork = new dungeon::item("pork", 25);
@@ -40,13 +47,14 @@ int main(int argc, char** argv){
 
     delete sword;
     delete pork;
-*/
-    dungeon::Room::print_inventory_of_all_rooms(World_Grid);
+*/ // if i remove this comment, i get a segfault, look into that...
 
-    std::string input;
+    dungeon::Room::print_inventory_of_all_rooms(World_Grid);
+        std::string input;
+
     
     while(true){
-
+        
         std::cout << "Where do you want do go? (w/a/s/d) or quit (q)" << std::endl;
         std::cin >> input;
         

@@ -1,19 +1,12 @@
 #include <iostream>
 #include "player.h"
 #include "rooms.h"
+#include "inventory.h"
 
 
 namespace dungeon{
 
-    player::~player() {
-
-        while(inventory_head != nullptr){
-
-            item* temp = inventory_head->get_next(); // zeiger auf den nächsten knoten MERKEN!
-            delete inventory_head; // aktuellen knoten leeren
-            inventory_head = temp; // der kopf ist jetzt der zeiger auf den nächsten knoten
-        }
-    }
+    player::~player(){delete inventory_head; }
 
     void player::move_north(){
 

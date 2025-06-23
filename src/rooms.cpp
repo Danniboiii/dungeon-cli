@@ -18,15 +18,7 @@ namespace dungeon{
         if((x == 0 && y == 0) || (x == 0 && y == 4) || (x == 4 && y == 0) || (x == 4 && y == 4)) is_corner = true;
     }
 
-    Room::~Room(){
-
-        while(inventory_head != nullptr){
-
-            item* temp = inventory_head->get_next(); // zeiger auf den nächsten knoten MERKEN!
-            delete inventory_head; // aktuellen knoten leeren
-            inventory_head = temp; // der kopf ist jetzt der zeiger auf den nächsten knoten
-        }
-    }
+    Room::~Room(){delete inventory_head; }
 
     void Room::print_coordinates() const{
 
@@ -57,9 +49,9 @@ namespace dungeon{
 
                 // wrong: cout << World_Grid[y][x]->item::print_inventory(inventory_head);
                 // only prints the items of a room, if there are any.
-                if(World_Grid[y][x]->get_inventory() == nullptr){
+                if(World_Grid[y][x]->get_inventory() != nullptr){
                     cout << "Items in Room (" << x << ", " << y << "): ";
-                    item::print_inventory(World_Grid[y][x]->inventory_head);
+                    item::print_inventory(World_Grid[y][x]->get_inventory());
                     //cout << endl;
                 }
 

@@ -114,7 +114,8 @@ namespace dungeon{
             delete inventory_head; // aktuellen knoten löschen
             inventory_head = temp; // der kopf ist jetzt der zeiger auf den nächsten knoten
         }
-        return nullptr;
+        inventory_head = nullptr;
+        return inventory_head;
     }
 
     std::string item::get_name() const {return name;}
