@@ -1,2 +1,3 @@
 # usage: <item_name> <quantity>
 balls 400
+hendl 20

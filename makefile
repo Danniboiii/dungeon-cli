@@ -14,7 +14,7 @@ TARGET = dungeon
 
 # compiler ist g++ und compiler flags sind: alle warnungen und c++-standart ist c++17
 CXX = g++
-CXXFLAGS = -Wall -std=c++17 -g -Iinclude
+CXXFLAGS = -Wall -std=c++17 -g -Iinclude -lncurses
 
 # für meine fertige datei calc brauche ich objektdatein zum zusammenfügen
 $(TARGET): $(OBJS)

@@ -28,7 +28,6 @@ int main(int argc, char** argv){
         std::cout << "Bruh, choose values between 0 and 4 for x and y..." << std::endl;
         exit(5);
     }
-    // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear leftover newline
 
 
     dungeon::Room* starting_room = World_Grid[x][y];
@@ -36,10 +35,10 @@ int main(int argc, char** argv){
 
     dungeon::item::init_items_from_file("items.txt", World_Grid);
     //dungeon::Room::place_items_in_rand_rooms(World_Grid);
+    dungeon::Room::print_inventory_of_all_rooms(World_Grid);
     print_worldgrid_with_player(player1, World_Grid);
 
-    dungeon::Room::print_inventory_of_all_rooms(World_Grid);
-        std::string input;
+    std::string input;
 
     
     while(true){
@@ -76,6 +75,8 @@ int main(int argc, char** argv){
     delete_world(World_Grid);
     return 0;
 }
+
+
 
 void game_turn(dungeon::player& player1){
     using namespace std;
