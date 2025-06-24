@@ -3,6 +3,10 @@
 #include "rooms.h"
 #include <string>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <random>
+
 
 
 namespace dungeon{
@@ -108,14 +112,8 @@ namespace dungeon{
 
     item* item::clear_inventory(item* inventory_head){
 
-        while(inventory_head != nullptr){
-
-            item* temp = inventory_head->next; // zeiger auf den nächsten knoten MERKEN!
-            delete inventory_head; // aktuellen knoten löschen
-            inventory_head = temp; // der kopf ist jetzt der zeiger auf den nächsten knoten
-        }
-        inventory_head = nullptr;
-        return inventory_head;
+        delete inventory_head;
+        return nullptr;
     }
 
     std::string item::get_name() const {return name;}
@@ -194,11 +192,77 @@ namespace dungeon{
         }
         item* current_item = source_list_head;
         while(current_item != nullptr){
-
-            target_list_head = add_item(target_list_head, *current_item); 
             // because add item expects a reference to an item object, the pointer to current_item needs to be derefferenced
+            target_list_head = add_item(target_list_head, *current_item); 
             current_item = current_item->next;
         }
         return target_list_head;
+    }
+
+
+    /*cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear leftover newline
+        istringstream iss(line);
+        string item_name;
+
+        while(iss >> item_name){
+
+            item* new_item = new item(item_name);
+            int x = dist(gen);
+            int y = dist(gen);
+            World_Grid[y][x]->add_item_to_r_inventory(*new_item);
+            delete new_item; // delete the object ater copying it to avoid memory
+        }*/
+
+    void distribute_each_item_randomly(item* item_to_place, std::vector<std::vector<Room*>> &World_Grid){
+
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> dist(0, 4);
+        
+
+        for(int i = 0; i < item_to_place->get_quantity(); i++){
+
+            int x = dist(gen);
+            int y = dist(gen);
+            item new_item(item_to_place->get_name());
+            World_Grid[y][x]->add_item_to_r_inventory(new_item);
+        }
+    }
+
+    void item::init_items_from_file(std::string filename, std::vector<std::vector<Room*>> &World_Grid){
+
+        std::ifstream file(filename);
+
+        if(!file.is_open()){
+
+            std::cerr << "Couldn't open file: " << filename << std::endl;
+            return;
+        }
+
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> dist(0, 4);
+        std::string line;
+        getline(file, line); // ignore first line of the file
+
+        while(getline(file, line)){
+
+            std::istringstream iss(line);
+            std::string name;
+            int quantity;
+            if(!(iss >> name >> quantity)){
+
+                std::cerr << "Skipping malformated line: " << line << std::endl;
+                continue;
+            }
+            iss >> name >> quantity;
+            item* new_item = new item(name, quantity);
+            distribute_each_item_randomly(new_item, World_Grid);
+            /*
+            int x = dist(gen);
+            int y = dist(gen);
+            World_Grid[y][x]->add_item_to_r_inventory(*new_item);
+            delete new_item; */
+        }
     }
 }

@@ -67,10 +67,10 @@ namespace dungeon{
         mt19937 gen(rd());
         uniform_int_distribution<> dist(0, 4);
         cout << "Enter items that will be placed in the World Grid: <item> <item> <item> etc." << endl;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear leftover newline
 
         string line;
         getline(cin, line);
+        // cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear leftover newline
         istringstream iss(line);
         string item_name;
 
@@ -80,7 +80,7 @@ namespace dungeon{
             int x = dist(gen);
             int y = dist(gen);
             World_Grid[y][x]->add_item_to_r_inventory(*new_item);
-            delete new_item; // delete the object ater copying it to avoid memory
+            delete new_item; // delete the object ater copying it to avoid memory leaks
         }
     }
 } // namespace dungeon

@@ -6,6 +6,7 @@
 
 namespace dungeon{
 
+    class Room;
     class item{
 
         private: // structure these after importance (best practice)
@@ -51,6 +52,8 @@ namespace dungeon{
         static item* search_inventory(item* inventory_head, const std::string& search_name);
         // copys the contents of source_list_head to target_list_head, returns the (updated) target_list_head
         static item* copy_inventory(item* source_list_head, item* target_list_head);
+
+        static void init_items_from_file(std::string filename, std::vector<std::vector<Room*>> &World_Grid);
     };
 }
 

@@ -60,7 +60,8 @@ namespace dungeon{
             return;
         }
         item* source_list_head = room->get_inventory(); // important because room->get_inventory() is not an lvalue! look into lvalue & rvalues
-        inventory_head = item::copy_inventory(source_list_head, inventory_head);
+        //inventory head belongs to player, source_inventory_head belongs to the room
+        inventory_head = item::copy_inventory(source_list_head, inventory_head); 
         room->clear_r_inventory();
     }
 

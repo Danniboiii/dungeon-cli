@@ -1,0 +1,2 @@
+# usage: <item_name> <quantity>
+balls 400

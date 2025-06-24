@@ -60,7 +60,7 @@ debug: $(TARGET)
 
 .PHONY: valgrind
 valgrind: $(TARGET)
-	valgrind ./$(TARGET)
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --error-exitcode=42 ./$(TARGET)
 
 .PHONY: rebuild
 rebuild: clean $(TARGET)
