@@ -32,8 +32,7 @@ namespace dungeon{
 
     void Room::print_single_r_inventory(){
 
-        std::cout << "This room contains the following items" << std::endl;
-        item::print_inventory(inventory_head);
+        std::cout << "This room contains the following items:" << std::endl << inventory_head << std::endl;
     }
 
     void Room::clear_r_inventory(){
@@ -51,10 +50,9 @@ namespace dungeon{
                 // only prints the items of a room, if there are any.
                 if(World_Grid[y][x]->get_inventory() != nullptr){
                     cout << "Items in Room (" << x << ", " << y << "): ";
-                    item::print_inventory(World_Grid[y][x]->get_inventory());
-                    //cout << endl;
+                    //item::print_inventory(World_Grid[y][x]->get_inventory());
+                    cout << World_Grid[y][x]->get_inventory() << endl;
                 }
-
             }
         }
     }

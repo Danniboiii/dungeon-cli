@@ -9,7 +9,30 @@
 
 
 
+
+
+
 namespace dungeon{
+
+    std::ostream& operator<<(std::ostream& os, const item* inventory_head){
+        using namespace std;
+
+        const item* current_item = inventory_head;
+        if(!current_item){
+
+            os << "No items in this inventory." << endl;
+            return os;
+        }
+        int index = 1;
+        while(current_item){
+
+            os << endl << "[" << index << "]: " << current_item->name << "(" << current_item->quantity << ");";
+            current_item = current_item->next;
+            index++;
+        }
+        os << endl;
+        return os;
+    }
 
     item& item::operator=(const item &item_to_copy){
 
@@ -22,7 +45,7 @@ namespace dungeon{
 
     item::item(item&& other) noexcept : name(std::move(other.name)), quantity(other.quantity), next(other.next){
 
-    other.name.clear();
+    other.name.clear(); // clear is a given method, because it's used on a std class (stringund )
     other.quantity = 0;
     other.next = nullptr;
     }
@@ -142,26 +165,26 @@ namespace dungeon{
     }
 
 
-    void item::print_inventory(item* inventory_head){
-        using namespace std;
+    // void item::print_inventory(item* inventory_head){
+    //     using namespace std;
 
-        item* current_item = inventory_head;
-        if(current_item == nullptr){
+    //     item* current_item = inventory_head;
+    //     if(current_item == nullptr){
 
-            cout << "No items in this inventory." << endl;
-            return;
-        }
+    //         cout << "No items in this inventory." << endl;
+    //         return;
+    //     }
 
-        int index = 1;
-        while(current_item != nullptr){
+    //     int index = 1;
+    //     while(current_item != nullptr){
 
-            std::cout << endl << "[" << index << "]: " << current_item->name << "(" << current_item->quantity << ");";
-            //if(current_item->next != nullptr) cout << "; ";  
-            current_item = current_item->next;
-            index++;
-        }
-        cout << endl << endl;
-    }
+    //         std::cout << endl << "[" << index << "]: " << current_item->name << "(" << current_item->quantity << ");";
+    //         //if(current_item->next != nullptr) cout << "; ";  
+    //         current_item = current_item->next;
+    //         index++;
+    //     }
+    //     cout << endl << endl;
+    // }
 
     item* item::search_inventory(item* inventory_head, const std::string &search_name){
 
@@ -198,20 +221,6 @@ namespace dungeon{
         }
         return target_list_head;
     }
-
-
-    /*cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear leftover newline
-        istringstream iss(line);
-        string item_name;
-
-        while(iss >> item_name){
-
-            item* new_item = new item(item_name);
-            int x = dist(gen);
-            int y = dist(gen);
-            World_Grid[y][x]->add_item_to_r_inventory(*new_item);
-            delete new_item; // delete the object ater copying it to avoid memory
-        }*/
 
     void distribute_each_item_randomly(item* item_to_place, std::vector<std::vector<Room*>> &World_Grid){
 
@@ -256,13 +265,8 @@ namespace dungeon{
                 continue;
             }
             iss >> name >> quantity;
-            item* new_item = new item(name, quantity);
-            distribute_each_item_randomly(new_item, World_Grid);
-            /*
-            int x = dist(gen);
-            int y = dist(gen);
-            World_Grid[y][x]->add_item_to_r_inventory(*new_item);
-            delete new_item; */
+            item new_item(name, quantity);
+            distribute_each_item_randomly(&new_item, World_Grid);
         }
     }
 }

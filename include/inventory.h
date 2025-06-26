@@ -7,7 +7,11 @@
 namespace dungeon{
 
     class Room;
+    class item;
+
     class item{
+
+        friend std::ostream& operator<<(std::ostream& os, const item* inventory_head);
 
         private: // structure these after importance (best practice)
             std::string name;
@@ -16,12 +20,12 @@ namespace dungeon{
 
         public:
         // constructor for an item object, it's not in a list, thus has no next-ptr
-        item(const std::string &item_name, int num_of_item = 1) : name(item_name), quantity(num_of_item), next(nullptr) {}
+        item(const std::string& item_name, int num_of_item = 1) : name(item_name), quantity(num_of_item), next(nullptr) {}
 
         // copy constructor that takes an item reference and creates a new item with the values of item_to_copy, but sets next to nullptr
-        item(const item &item_to_copy) : name(item_to_copy.name), quantity(item_to_copy.quantity), next(nullptr) {}
+        item(const item& item_to_copy) : name(item_to_copy.name), quantity(item_to_copy.quantity), next(nullptr) {}
 
-        // assignment operator overload to shallow copy an item
+        // assignment operator overload to deep copy an item
         item& operator=(const item& item_to_copy);
 
         // move constructor

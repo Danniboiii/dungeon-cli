@@ -43,8 +43,7 @@ namespace dungeon{
 
     void player::print_p_inventory(){
 
-        std::cout << "Your inventory contains these items:" << std::endl;
-        item::print_inventory(inventory_head);
+        std::cout << "Your inventory contains these items:" << std::endl << inventory_head << std::endl;
     }
 
     void player::clear_p_inventory(){
